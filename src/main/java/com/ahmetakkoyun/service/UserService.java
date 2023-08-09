@@ -12,11 +12,11 @@ public class UserService implements ICrud<User> {
     private final UserRepository userRepository;
 
     public UserService(){
+        System.out.println("UserService çalışıyor...");
         this.userRepository = new UserRepository();
     }
 
     public User save(User user) {
-        System.out.println("UserService -> UserRepository");
         return userRepository.save(user);
     }
 
@@ -27,7 +27,6 @@ public class UserService implements ICrud<User> {
 
     @Override
     public void deleteById(Long id) {
-
     }
 
     @Override
@@ -37,7 +36,14 @@ public class UserService implements ICrud<User> {
 
     @Override
     public Optional<User> findById(Long id) {
-        return Optional.empty();
+        return userRepository.findById(id);
     }
 
+    public Optional<User> findByUsername(String username){
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isEmpty()){
+            System.out.println("VERİTABANINDA "+username+" KULLANICISI BULUNAMADI!!!!");
+        }
+        return user;
+    }
 }

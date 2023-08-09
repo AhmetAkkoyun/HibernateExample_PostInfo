@@ -12,11 +12,11 @@ public class PostService implements ICrud<Post> {
     private final PostRepository postRepository;
 
     public PostService() {
+        System.out.println("PostService çalışıyor...");
         this.postRepository = new PostRepository();
     }
 
     public Post save(Post post) {
-        System.out.println("PostService -> PostRepository");
         return postRepository.save(post);
     }
 
@@ -27,7 +27,6 @@ public class PostService implements ICrud<Post> {
 
     @Override
     public void deleteById(Long id) {
-
     }
 
     @Override

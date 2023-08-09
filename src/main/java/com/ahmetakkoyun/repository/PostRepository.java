@@ -15,6 +15,11 @@ public class PostRepository implements ICrud<Post> {
 
     Session session;
     Transaction transaction;
+
+    public PostRepository(){
+        System.out.println("postRepository çalışıyor...");
+    }
+
     @Override
     public Post save(Post post) {
         try {
@@ -31,7 +36,6 @@ public class PostRepository implements ICrud<Post> {
             System.out.println("oturum kapanıyor");
             session.close();
         }
-        System.out.println("PostRepository -> PostService");
         return post;
     }
 
@@ -42,7 +46,6 @@ public class PostRepository implements ICrud<Post> {
 
     @Override
     public void deleteById(Long id) {
-
     }
 
     @Override

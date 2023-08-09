@@ -12,11 +12,11 @@ public class PostController implements ICrud<Post> {
     private final PostService postService;
 
     public PostController() {
+        System.out.println("PostController çalışıyor...");
         this.postService = new PostService();
     }
 
     public Post save(Post post) {
-        System.out.println("PostController -> PostService");
         return postService.save(post);
     }
 
@@ -27,7 +27,6 @@ public class PostController implements ICrud<Post> {
 
     @Override
     public void deleteById(Long id) {
-
     }
 
     @Override
