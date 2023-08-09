@@ -2,6 +2,7 @@ package com.ahmetakkoyun;
 
 import com.ahmetakkoyun.controller.PostController;
 import com.ahmetakkoyun.controller.UserController;
+import com.ahmetakkoyun.repository.UserRepository;
 import com.ahmetakkoyun.repository.entity.Address;
 import com.ahmetakkoyun.repository.entity.Name;
 import com.ahmetakkoyun.repository.entity.Post;
@@ -14,6 +15,17 @@ import java.util.List;
 import java.util.Map;
 
 public class NewApp {
+    public static void main(String[] args) {
+
+        UserController userController = new UserController();
+        PostController postController = new PostController();
+
+//        createUsers(userController);
+//        createPosts(postController);
+
+        System.out.println("user ==> "+userController.findByUsername("ali"));
+
+    }
 
     public static  void createUsers(UserController userController){
         List<String> list1 = List.of("Astroloji", "Sinema");
@@ -106,7 +118,7 @@ public class NewApp {
 
     }
 
-    public static void createPost(PostController postController){
+    public static void createPosts(PostController postController){
         Post post1 = Post.builder()
                 .content("içerik1")
                 .userId(1L)
@@ -205,8 +217,5 @@ public class NewApp {
         postController.save(post16);
 
     }
-
-
-
 
 }

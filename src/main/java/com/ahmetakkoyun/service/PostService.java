@@ -16,7 +16,7 @@ public class PostService implements ICrud<Post> {
     }
 
     public Post save(Post post) {
-        System.out.println("PostService -> PostRepository");
+        System.out.println("PostService çalışıyor...");
         return postRepository.save(post);
     }
 

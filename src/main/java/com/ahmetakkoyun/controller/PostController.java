@@ -16,7 +16,7 @@ public class PostController implements ICrud<Post> {
     }
 
     public Post save(Post post) {
-        System.out.println("PostController -> PostService");
+        System.out.println("PostController çalışıyor...");
         return postService.save(post);
     }
 

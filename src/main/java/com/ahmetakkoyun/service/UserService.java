@@ -16,7 +16,7 @@ public class UserService implements ICrud<User> {
     }
 
     public User save(User user) {
-        System.out.println("UserService -> UserRepository");
+        System.out.println("UserService çalışıyor...");
         return userRepository.save(user);
     }
 
@@ -39,5 +39,15 @@ public class UserService implements ICrud<User> {
     public Optional<User> findById(Long id) {
         return Optional.empty();
     }
+
+    public Optional<User> findByUsername(String username){
+        System.out.println("UserService çalışıyor...");
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isEmpty()){
+            System.out.println("VERİTABANINDA "+username+" KULLANICISI BULUNAMADI!!!!");
+        }
+        return user;
+    }
+
 
 }
