@@ -2,6 +2,7 @@ package com.ahmetakkoyun;
 
 import com.ahmetakkoyun.controller.PostController;
 import com.ahmetakkoyun.controller.UserController;
+import com.ahmetakkoyun.repository.PostRepository;
 import com.ahmetakkoyun.repository.UserRepository;
 import com.ahmetakkoyun.repository.entity.Address;
 import com.ahmetakkoyun.repository.entity.Name;
@@ -10,9 +11,7 @@ import com.ahmetakkoyun.repository.entity.User;
 import com.ahmetakkoyun.repository.enums.EAddressType;
 import com.ahmetakkoyun.repository.enums.EGender;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class NewApp {
     public static void main(String[] args) {
@@ -20,6 +19,7 @@ public class NewApp {
 //        UserController userController = new UserController();
         UserRepository userRepository = new UserRepository();
 //        PostController postController = new PostController();
+        PostRepository postRepository = new PostRepository();
 
 //        createUsers(userController);
 //        createPosts(postController);
@@ -41,13 +41,29 @@ public class NewApp {
 
 //        System.out.println("avgPostCount => "+userRepository.avgPostCount());
 
-        userRepository.groupByPostCount()
-                .forEach(objectArray -> {
-                    for (Object o : objectArray) {
-                        System.out.print(o+"-");
-                    }
-                    System.out.println();
-                });
+//        userRepository.groupByPostCount()
+//                .forEach(objectArray -> {
+//                    for (Object o : objectArray) {
+//                        System.out.print(o+"-");
+//                    }
+//                    System.out.println();
+//                });
+//
+//        userRepository.groupByPostCount()
+//                .forEach(objectArray -> {
+//                    System.out.println(Arrays.toString(objectArray));    // böyle de olur
+//                });
+
+
+//        userRepository.mostPostingUser().forEach(x-> System.out.println(x));
+
+//        userRepository.getUsernameGenderPostCount().forEach(x-> System.out.println(Arrays.toString(x)));
+
+//        userRepository.getUserGendersWithTotalPost().forEach(x-> System.out.println(Arrays.toString(x)));
+
+        System.out.println(postRepository.findByUserWithPostId(10L));
+
+
 
     }
 

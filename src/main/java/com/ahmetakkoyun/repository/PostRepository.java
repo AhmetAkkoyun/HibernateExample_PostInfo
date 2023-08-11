@@ -8,6 +8,7 @@ import com.ahmetakkoyun.utility.ICrud;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +57,20 @@ public class PostRepository implements ICrud<Post> {
     @Override
     public Optional<Post> findById(Long id) {
         return Optional.empty();
+    }
+
+    public Optional<User> findByUserWithPostId(Long postId){
+        String hql = "SELECT u FROM Post p JOIN User u ON u.id=p.userId WHERE p.id=:postId";
+        session = HibernateUtility.getSessionFactory().openSession();
+        TypedQuery<User> typedQuery = session.createQuery(hql, User.class);
+        typedQuery.setParameter("postId", postId);
+        User user = null;
+        try {
+            user = typedQuery.getSingleResult();
+        }catch (Exception e){
+            System.out.println("KULLANICI BULUNAMADI!!!");
+        }
+        return Optional.ofNullable(user);
+
     }
 }

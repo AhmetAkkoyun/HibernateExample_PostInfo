@@ -171,4 +171,58 @@ public class UserRepository implements ICrud<User> {
         return typedQuery.getResultList();
     }
 
+    public List<User> mostPostingUser(){
+        String hql = "SELECT u FROM User u WHERE postCount = (SELECT max(postCount) from User)";
+        session = HibernateUtility.getSessionFactory().openSession();
+        TypedQuery<User> typedQuery = session.createQuery(hql, User.class);
+        return  typedQuery.getResultList();
+    }
+
+    public Optional<User> mostPostingUser2(){
+        String hql = "SELECT u FROM User u WHERE postCount = (SELECT max(postCount) from User)";
+        session = HibernateUtility.getSessionFactory().openSession();
+        TypedQuery<User> typedQuery = session.createQuery(hql, User.class);
+        User user = null;
+        List<User> list = typedQuery.getResultList();
+        if (!list.isEmpty()){
+            user = list.get(0);    // burada aynı post sayısında birden çok kişi olursa ilk bulduğunu yazdırır.
+        }
+        return Optional.ofNullable(user);
+    }
+
+    public Optional<User> mostPostingUser3(){
+        String hql = "SELECT u FROM User u ORDER BY postCount DESC";   // sıralayıp üsttekini çekeceğiz
+        session = HibernateUtility.getSessionFactory().openSession();
+        TypedQuery<User> typedQuery = session.createQuery(hql, User.class);
+        typedQuery.setMaxResults(1); // ne kadar sonuç getireceğimizi seçebiliriz (ilk 2 - ilk 3 - ilk 5 gibi)
+        User user = null;
+        try {
+            user =         typedQuery.getResultList().get(0);
+        } catch (Exception e){
+            System.out.println(e.toString());
+        }
+        typedQuery.getResultList().forEach(System.out::println);
+        return Optional.ofNullable(user);
+    }
+
+    public List<Object[]> getUsernameGenderPostCount(){
+        String hql = "SELECT u.username, u.gender, u.postCount FROM User u";
+        session = HibernateUtility.getSessionFactory().openSession();
+        TypedQuery<Object[]> typedQuery = session.createQuery(hql, Object[].class);
+        return typedQuery.getResultList();
+    }
+
+    public List<Object[]> getUserGendersWithTotalPost(){
+        String hql = "SELECT u.gender, SUM(postCount) FROM User u GROUP BY u.gender";
+        session = HibernateUtility.getSessionFactory().openSession();
+        TypedQuery<Object[]> typedQuery = session.createQuery(hql, Object[].class);
+        return typedQuery.getResultList();
+    }
+
+
+
+
+
+    // postRepositoryde optional hql sorgusu. 1 numaralı postu atan kullanıcıyı getiren sorgu (join ile)
+
 }
